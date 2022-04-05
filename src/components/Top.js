@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import useFetch from "../utils/useFetch"
@@ -39,25 +40,29 @@ const Top = () => {
       {response?.results?.books.length > 0 && (
         <Carousel responsive={responsive}>
           {response?.results?.books.map((book, key) => (
-            <div className="p-5" key={key}>
-              <div className="relative max-w-sm rounded overflow-hidden shadow-lg mx-auto text-center h-full">
-                <span
-                  className={`h-8 w-8 absolute right-5 top-5 bg-white flex justify-center items-center rounded-full ${checkRank(
-                    book.rank
-                  )}`}
-                >
-                  {book.rank}
-                </span>
-                <img
-                  className="w-full"
-                  src={book.book_image}
-                  alt="Sunset in the mountains"
-                />
-                <div className="bg-white/90 px-6 py-4 absolute bottom-0 z-10">
-                  <div className="font-bold text-xl mb-2">{book.title}</div>
-                  <p className="text-gray-700 text-base">{book.description}</p>
+            <div className="p-5" key={book.rank}>
+              <Link to={`/${book.rank}`}>
+                <div className="relative max-w-sm rounded overflow-hidden shadow-lg mx-auto text-center h-full">
+                  <span
+                    className={`h-8 w-8 absolute right-5 top-5 bg-white flex justify-center items-center rounded-full ${checkRank(
+                      book.rank
+                    )}`}
+                  >
+                    {book.rank}
+                  </span>
+                  <img
+                    className="w-full"
+                    src={book.book_image}
+                    alt="Sunset in the mountains"
+                  />
+                  <div className="bg-white/90 px-6 py-4 absolute bottom-0 z-10">
+                    <div className="font-bold text-xl mb-2">{book.title}</div>
+                    <p className="text-gray-700 text-base">
+                      {book.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </Carousel>
